@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  app:
+    container_name: ptrack
+    restart: always
+    build: .
+    ports:
+      - "62001:3000"
+networks:
+  default:
+    external:
+      name: all-apps

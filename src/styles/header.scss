@@ -1,0 +1,39 @@
+@media (min-width: 768px) {
+    header {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+
+        h1 {
+            grid-column: 1 / 2;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            grid-column: 2 / 3;
+            gap: 2rem;
+        }
+
+        #header-actions {
+            display: flex;
+            grid-column: 3 / 4;
+            align-items: center;
+            justify-content: flex-end;
+
+            #create-button {
+                margin-right: 2rem;
+            }
+
+            .popover {
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+            }
+        }
+
+        button {
+            margin-left: .5rem;
+        }
+    }
+}
