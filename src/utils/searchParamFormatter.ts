@@ -1,4 +1,4 @@
-import { createSearchParamsFormatter, string, digits, columnSort, commaDelimited } from "ui-lib/src/utils";
+import { createSearchParamsFormatter, string, digits, columnSort, commaDelimited } from "../ui-lib"
 
 export default createSearchParamsFormatter({
     id: string,

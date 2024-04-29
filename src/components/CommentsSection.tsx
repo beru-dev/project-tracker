@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm";
 import { db } from "../database/connection";
 import { comment, user } from "../database/schema";
-import { Comments } from "ui-lib";
+import { Comments } from "../ui-lib";
 import { getUser } from "src/utils";
 
 export default async ({ ticketNumber, projectId }: CommentsSectionProps) => {

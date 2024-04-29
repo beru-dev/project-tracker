@@ -1,4 +1,4 @@
-import { EditField, EditSelect, SearchList } from "ui-lib";
+import { EditField, EditSelect, SearchList } from "../../ui-lib";
 import { CommentsSection } from "../../components";
 import { db } from "../../database/connection";
 import { ticket, project, user } from "../../database/schema";

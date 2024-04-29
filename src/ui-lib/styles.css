@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --default-font-family: "Raleway", Tahoma, Geneva, Verdana, sans-serif;
+    --default-text: #666666;
+    --dark-fade-text: rgba(0, 0, 0, 0.87);
+    --light-fade-text: rgba(255, 255, 255, 0.87);
+    --light-1: #ffffff;
+    --light-2: #e5e5e5;
+    --light-3: #c5c5c5;
+    --dark-3: #191919;
+    --dark-1: #232323;
+    --dark-2: #333333;
+    --dark-4: #454545;
+    --accent: #2384e4;
+    --accent-light: #5cadff;
+    --accent-dark: #0b5eb1;
+}
+
+body {
+    --text-color: var(--dark-fade-text);
+    --background: var(--light-1);
+    --field-bg: var(--light-2);
+    --field-bg-focused: var(--light-3);
+    --border: 1px solid #e5e5e5;
+    margin: 0;
+}
+
+header, footer {
+    background: var(--light-3);
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent);
+}
+
+a:visited, a:hover {
+    color: var(--accent-dark);
+    cursor: pointer;
+}
+
+button {
+    background: var(--accent);
+    color: var(--light-1);
+    border: none;
+    padding: .5rem;
+    border-radius: .5rem;
+    font-family: var(--default-font-family);
+}
+
+input, textarea {
+    background-color: var(--field-bg);
+    color: var(--text-color);
+    border-radius: .5rem;
+}
+
+input:focus-visible, textarea:focus-visible {
+    outline: 0;
+    background-color: var(--field-bg-focused);
+}
+
+body.dark-theme {
+    --text-color: var(--light-fade-text);
+    --background: var(--dark-2);
+    --field-bg: var(--dark-4);
+    --field-bg-focused: var(--dark-3);
+    --border: 1px solid #454545;
+}
+
+.dark-theme header, .dark-theme footer {
+    background: var(--dark-1);
+}
+
+.dark-theme a {
+    color: var(--accent);
+}
+
+.dark-theme a:visited, .dark-theme a:hover {
+    color: var(--accent-light);
+    cursor: pointer;
+}
+
+.dark-theme .popover {
+    background-color: var(--dark-3);
+}

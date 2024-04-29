@@ -1,4 +1,4 @@
-import { SearchableResults } from "ui-lib";
+import { SearchableResults } from "../../ui-lib";
 import { db } from "../../database/connection";
 import { ticket, project } from "../../database/schema";
 import { sql, eq, inArray } from "drizzle-orm";

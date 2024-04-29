@@ -1,0 +1,29 @@
+.field-editing {
+    padding: .5rem;
+    span {
+        margin-right: .5rem;
+        font-weight: bold;
+    }
+    button {
+        background: none;
+        border: none;
+        &.submit svg {
+            fill: #1be188;
+        }
+        &.cancel svg {
+            fill: #e41f3c
+        }
+    }
+}
+.field-inactive {
+    padding: .5rem;
+    span {
+        margin-right: .5rem;
+        font-weight: bold;
+    }
+}
+.break {
+    > span, label > span {
+        display: block;
+    }
+}

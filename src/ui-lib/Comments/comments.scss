@@ -1,0 +1,22 @@
+section.comments {
+    display: flex;
+    flex-direction: column;
+
+    article.comment {
+        display: grid;
+        grid-template-areas:
+            "user date"
+            "content content";
+        margin: 1rem 0;
+        .user {
+            grid-area: user;
+            font-weight: bold;
+        }
+        .date {
+            grid-area: date;
+        }
+        .content {
+            grid-area: content;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Popover } from "ui-lib";
+import { Popover } from "../ui-lib";
 import AuthButton from "./AuthButton";
 import "../styles/header.scss";
 

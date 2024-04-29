@@ -1,5 +1,5 @@
 import "../styles/main.scss";
-import "ui-lib/styles.css";
+import "../ui-lib/styles.css";
 import { getServerSession } from "next-auth";
 import { Footer, Header, SessionProvider } from "../components";
 

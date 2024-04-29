@@ -1,4 +1,4 @@
-import { SearchableResults } from "ui-lib";
+import { SearchableResults } from "../../ui-lib";
 import { db } from "../../database/connection";
 import { project } from "../../database/schema";
 import Link from "next/link";
