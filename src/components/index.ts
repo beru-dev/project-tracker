@@ -1,5 +1,4 @@
 export { default as Aside } from "./Aside";
-export { default as ChildTickets } from "./ChildTickets";
 export { default as CommentsSection } from "./CommentsSection";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";

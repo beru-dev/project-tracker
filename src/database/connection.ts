@@ -10,7 +10,7 @@ const pool = new Pool({
     password: process.env["DB_PASS"],
     database: process.env["DB_NAME"],
     ssl: process.env["POSTGRES_SSL"]
-        ? { ca: fs.readFileSync("../../us-west-2-bundle.pem").toString() }
+        ? { ca: fs.readFileSync("/app/us-west-2-bundle.pem").toString() }
         : undefined
 });
 
