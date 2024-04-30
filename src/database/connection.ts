@@ -7,7 +7,8 @@ const pool = new Pool({
     port: 5432,
     user: process.env["DB_USER"],
     password: process.env["DB_PASS"],
-    database: process.env["DB_NAME"]
+    database: process.env["DB_NAME"],
+    ssl: true
 });
 
 export const db = drizzle(pool, { schema });

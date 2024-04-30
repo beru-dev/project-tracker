@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   app:
     container_name: ptrack
@@ -6,7 +5,8 @@ services:
     build: .
     ports:
       - "62001:3000"
+    networks:
+      - all-apps
 networks:
-  default:
-    external:
-      name: all-apps
+  all-apps:
+      external: true
