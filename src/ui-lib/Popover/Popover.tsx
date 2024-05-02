@@ -4,13 +4,17 @@ import React, { ReactNode, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import "./popover.scss";
 
-export const Popover = ({ trigger, position = "below", children }: PopoverProps) => {
+export const Popover = ({ trigger, position = "below", children, id, className }: PopoverProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
     return (
         <>
-            <div className="popover-trigger" onClick={() => setIsOpen(!isOpen)} ref={ref}>
+            <div
+                className={"popover-trigger" + (className ? ` ${className}` : "")}
+                onClick={() => setIsOpen(!isOpen)}
+                {...{ ref, id }}
+            >
                 { trigger }
             </div>
             {
@@ -45,4 +49,6 @@ type PopoverProps = {
     trigger: ReactNode
     children: ReactNode
     position?: "above" | "below" | "left" | "right" | "nw" | "ne" | "se" | "sw"
+    className?: string
+    id?: string
 }

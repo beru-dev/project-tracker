@@ -5,7 +5,6 @@ import "./searchable-results.scss";
 
 export const SearchableResults = ({
     title,
-    actions,
     pageCount, pagePad = 2,
     children
 }: SearchableResultsProps) => {
@@ -13,8 +12,6 @@ export const SearchableResults = ({
         { title && <h2>{title}</h2> }
 
         <SearchBar className="search-bar" />
-
-        { actions && <div className="search-actions">{actions}</div> }
 
         <div className="results">
             {children}
@@ -26,8 +23,6 @@ export const SearchableResults = ({
 
 type SearchableResultsProps = {
     title?: string
-
-    actions?: ReactNode
 
     pageCount: number
     pagePad?: 1 | 2 | 3

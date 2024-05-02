@@ -1,7 +1,7 @@
 .searchable-results {
     display: grid;
     grid-template-areas:
-        "title search actions"
+        "title search search"
         "results results results"
         ". . pagination";
     gap: 1rem;
@@ -25,9 +25,6 @@
         padding: 0 1.5rem;
         align-self: center;
         outline: none;
-    }
-    .search-actions {
-        grid-area: actions;
     }
     .results {
         grid-area: results;

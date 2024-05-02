@@ -60,6 +60,17 @@ input:focus-visible, textarea:focus-visible {
     background-color: var(--field-bg-focused);
 }
 
+.popover {
+    background-color: var(--dark-3);
+    border: var(--border);
+}
+
+.popover::before {
+    background-color: var(--dark-3);
+    border-top: var(--border);
+    border-left: var(--border);
+}
+
 body.dark-theme {
     --text-color: var(--light-fade-text);
     --background: var(--dark-2);
@@ -83,4 +94,12 @@ body.dark-theme {
 
 .dark-theme .popover {
     background-color: var(--dark-3);
+}
+
+.dark-theme .popover::before {
+    background-color: var(--dark-3);
+}
+
+.dark-theme [type="date"] {
+    color-scheme: dark;
 }

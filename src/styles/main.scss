@@ -4,11 +4,17 @@ body {
     color: var(--text-color);
     display: grid;
     grid-template:
-        "header header"
-        "aside main"
-        "footer footer";
-    grid-template-columns: 1fr 7fr;
-
+        "header"
+        "aside"
+        "main"
+        "footer";
+    @media (min-width: 768px) {
+        grid-template:
+            "header header"
+            "aside main"
+            "footer footer";
+        grid-template-columns: 1fr 7fr;
+    }
     header {
         grid-area: header;
         padding: 1rem;
