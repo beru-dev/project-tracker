@@ -137,17 +137,28 @@ const getUsers = async () => {
 const updateTicket = async (id: string, column: string | undefined, value: any) => {
     "use server"
 
-    const [projectName, ticketNumber] = id.split("-");
-    if(!column || !projectName || !ticketNumber) return;
+    try {
+        const user = await getUser(["user", "admin"]);
+        const isGuest = !("role" in user) || user.role === "guest";
+        if(isGuest) throw new Error("Insufficient access to perform this operation");
 
-    const parentProject = db.$with("parent_project").as(
-        db.select({ pid: sql`${project.id}`.as("pid") })
-            .from(project)
-            .where(eq(project.name, projectName))
-    );
+        const [projectName, ticketNumber] = id.split("-");
+        if(!column || !projectName || !ticketNumber) return;
 
-    await db.with(parentProject)
-        .update(ticket)
-        .set({ [column]: value })
-        .where(sql`${ticket.projectId} = (select pid from ${parentProject}) AND ${ticket.ticketNumber} = ${ticketNumber}`);
+        const parentProject = db.$with("parent_project").as(
+            db.select({ pid: sql`${project.id}`.as("pid") })
+                .from(project)
+                .where(eq(project.name, projectName))
+        );
+
+        await db.with(parentProject)
+            .update(ticket)
+            .set({ [column]: value })
+            .where(sql`${ticket.projectId} = (select pid from ${parentProject}) AND ${ticket.ticketNumber} = ${ticketNumber}`);
+    } catch (error) {
+        console.error("Unable to update ticket", error);
+        // return {
+        //     message: "Unable to update ticket"
+        // }
+    }
 }

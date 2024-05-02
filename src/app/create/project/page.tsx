@@ -1,6 +1,7 @@
 import { db } from "../../../database/connection";
 import { project } from "../../../database/schema";
 import { getUser } from "../../../../src/utils";
+import { ProjectForm } from "src/components";
 
 export default async () => {
     const user = await getUser(["admin"]);
@@ -8,16 +9,23 @@ export default async () => {
         return <div>{user.error}</div>
     }
 
-    return <form action={serverAction}>
-        <input type="text" name="name" placeholder="Project name" required />
-        <button type="submit">Add</button>
-    </form>
+    return <ProjectForm formAction={formAction} />
 }
 
-const serverAction = async (formData: FormData) => {
+const formAction = async (prevState: any, formData: FormData) => {
     "use server"
+    try {
+        const user = await getUser(["user", "admin"]);
+        if("error" in user) {
+            console.error(user.error);
+        }
+throw new Error("nope")
+        await db.insert(project).values({
+            name: formData.get("name") as string
+        });
 
-    await db.insert(project).values({
-        name: formData.get("name") as string
-    });
+        return { message: "Ticket created" }
+    } catch (error) {
+        return { message: "Unable to create project" };
+    }
 }
