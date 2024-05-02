@@ -26,7 +26,7 @@ export default async () => {
             </select>
         </label>
 
-        <input type="text" name="title" placeholder="Enter title" />
+        <input type="text" name="title" placeholder="Enter title" required />
         <textarea name="description" placeholder="Enter description" />
         <input type="number" name="points" placeholder="Enter points" />
         <input type="text" name="Enter assignee" />
@@ -50,7 +50,7 @@ const formAction = async (userId: number, formData: FormData) => {
         projectId,
         title: formData.get("title") as string,
         description: formData.get("description") as string,
-        points: parseInt(formData.get("points") as string),
+        points: parseInt(formData.get("points") as string) || null,
         creatorId: userId
     };
 

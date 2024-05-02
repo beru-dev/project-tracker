@@ -9,7 +9,7 @@ export default async () => {
     }
 
     return <form action={serverAction}>
-        <input type="text" name="name" placeholder="Project name" />
+        <input type="text" name="name" placeholder="Project name" required />
         <button type="submit">Add</button>
     </form>
 }
