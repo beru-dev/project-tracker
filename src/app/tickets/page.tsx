@@ -1,14 +1,14 @@
 import { SearchableResults } from "../../ui-lib";
 import { db } from "../../database/connection";
 import { ticket, project } from "../../database/schema";
-import { sql, eq, inArray } from "drizzle-orm";
+import { sql, eq, inArray, like } from "drizzle-orm";
 import Link from "next/link";
 import { searchParamsFormatter } from "../../utils";
 import "../../styles/ticket-results.scss";
 
 export default async ({ searchParams }: TicketsProps) => {
-    const { projects, due } = searchParamsFormatter(searchParams);
-    const tickets = await getTickets(projects, due);
+    const { projects, due, search } = searchParamsFormatter(searchParams);
+    const tickets = await getTickets(search, projects, due);
 
     return <SearchableResults title="Tickets" pageCount={1}>
         {
@@ -28,6 +28,7 @@ type TicketsProps = {
 }
 
 const getTickets = async (
+    search: string | undefined,
     projects: string[] | undefined,
     due: Date | undefined,
     limit = 20,
@@ -48,7 +49,15 @@ const getTickets = async (
         where.append(inArray(project.name, projects));
     }
 
-    if(projects || due) {
+    if(projects && search) {
+        where.append(sql` AND `);
+    }
+
+    if(search) {
+        where.append(like(ticket.title, `%${search}%`));
+    }
+
+    if(search || projects || due) {
         tickets.where(where);
     }
 

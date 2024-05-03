@@ -1,11 +1,14 @@
 import { SearchableResults } from "../../ui-lib";
 import { db } from "../../database/connection";
+import { sql, like } from "drizzle-orm";
 import { project } from "../../database/schema";
 import Link from "next/link";
+import { searchParamsFormatter } from "../../utils";
 import "../../styles/project-results.scss";
 
-export default async () => {
-    const projects = await getProjects();
+export default async ({ searchParams }: ProjectsProps) => {
+    const { search } = searchParamsFormatter(searchParams);
+    const projects = await getProjects(search);
 
     return <SearchableResults title="Projects" pageCount={1}>
         {
@@ -20,13 +23,23 @@ export default async () => {
     </SearchableResults>
 }
 
+type ProjectsProps = {
+    searchParams: Record<string, string | string[] | undefined>
+}
+
 const getProjects = async (search?: string, limit = 20, offset = 0) => {
-    const projects = await db.select({
+    const projects = db.select({
         id: project.id,
         name: project. name
     }).from(project)
-        .limit(limit)
-        .offset(offset);
+        .$dynamic();
 
-    return projects;
+    const where = sql``;
+
+    if(search) {
+        where.append(like(project.name, `%${search}%`));
+        projects.where(where);
+    }
+
+    return projects.limit(limit).offset(offset);;
 }
