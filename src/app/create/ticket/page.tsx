@@ -3,6 +3,7 @@ import { project, ticket } from "../../../database/schema";
 import { eq, max } from "drizzle-orm";
 import { getUser } from "../../../../src/utils";
 import { TicketForm } from "src/components";
+import { revalidatePath } from "next/cache";
 
 export default async () => {
     const [user, projects] = await Promise.all([
@@ -46,7 +47,9 @@ const formAction = async (userId: number, prevState: any, formData: FormData) =>
         await db.insert(ticket)
             .values(values);
 
-        return { message: "Ticket created" }
+        revalidatePath("/tickets", "layout");
+
+        return { message: "Ticket created", projectId, newTicketNumber }
     } catch (error) {
         return { message: "Unable to create ticket" }
     }

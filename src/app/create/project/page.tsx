@@ -2,6 +2,7 @@ import { db } from "../../../database/connection";
 import { project } from "../../../database/schema";
 import { getUser } from "../../../../src/utils";
 import { ProjectForm } from "src/components";
+import { revalidatePath } from "next/cache";
 
 export default async () => {
     const user = await getUser(["admin"]);
@@ -19,13 +20,15 @@ const formAction = async (prevState: any, formData: FormData) => {
         if("error" in user) {
             console.error(user.error);
         }
-throw new Error("nope")
-        await db.insert(project).values({
-            name: formData.get("name") as string
-        });
 
-        return { message: "Ticket created" }
+        const name = formData.get("name") as string;
+
+        await db.insert(project).values({ name });
+
+        revalidatePath("/projects", "layout");
+
+        return { message: `Project created: ${name}`, isError: false }
     } catch (error) {
-        return { message: "Unable to create project" };
+        return { message: "Unable to create project", isError: true };
     }
 }
