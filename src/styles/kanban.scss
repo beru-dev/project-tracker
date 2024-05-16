@@ -1,0 +1,39 @@
+.board {
+    display: grid;
+    grid-template:
+        "todo working done"
+        "todo blocked abandoned";
+    gap: 1rem;
+    h3 {
+        text-transform: capitalize;
+        border-bottom: 1px solid #666666;
+        padding-bottom: .4rem;
+    }
+    section {
+        background-color: var(--dark-4);
+        border-radius: 1rem;
+        padding: .4rem 1rem;
+        &[data-status="to do"] {
+            grid-area: todo;
+        }
+        &[data-status="working"] {
+            grid-area: working;
+        }
+        &[data-status="done"] {
+            grid-area: done;
+        }
+        &[data-status="blocked"] {
+            grid-area: blocked;
+        }
+        &[data-status="abandoned"] {
+            grid-area: abandoned;
+        }
+        > div > div {
+            background-color: var(--dark-2);
+            border-radius: .5rem;
+            padding: .5rem;
+            margin-bottom: .5rem;
+            height: 100%;
+        }
+    }
+}

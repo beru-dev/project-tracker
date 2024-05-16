@@ -1,5 +1,5 @@
-import { date, /*foreignKey,*/ integer, pgEnum, pgTable, primaryKey, varchar, timestamp, boolean } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
+import { date, integer, pgEnum, pgTable, primaryKey, varchar, timestamp } from "drizzle-orm/pg-core";
+import { relations, type InferSelectModel } from "drizzle-orm";
 import { user } from "./user";
 import { comment } from "./comment";
 import { project } from "./project";
@@ -27,6 +27,8 @@ export const ticket = pgTable(
         })
     })
 );
+
+export type Ticket = InferSelectModel<typeof ticket>
 
 export const ticketRelations = relations(ticket, ({ one, many }) => ({
 	assignedUser: one(user, { fields: [ticket.assigneeId], references: [user.id], relationName: "assigned_user" }),

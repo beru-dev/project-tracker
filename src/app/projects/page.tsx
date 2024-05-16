@@ -14,7 +14,7 @@ export default async ({ searchParams }: ProjectsProps) => {
         {
             projects.map(({ id, name }) =>
                 <div className="project-listing">
-                    <Link href={`/tickets?projects=${name}`} key={id}>
+                    <Link href={`/project?name=${name}`} key={id}>
                         {name}
                     </Link>
                 </div>

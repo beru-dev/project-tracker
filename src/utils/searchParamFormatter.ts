@@ -2,6 +2,7 @@ import { createSearchParamsFormatter, string, digits, columnSort, commaDelimited
 
 export default createSearchParamsFormatter({
     id: string,
+    name: string,
     page: digits,
     limit: digits,
     search: string,

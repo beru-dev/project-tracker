@@ -46,7 +46,7 @@ export default ({ type = "text", name, label, value, action, editable = false }:
                         onKeyDown={(e: React.KeyboardEvent) => {
                             if(e.key === "Enter") {
                                 e.preventDefault();
-            
+
                                 submit();
                             }
 

@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import "react-toastify/dist/ReactToastify.css";
 
-export default ({ projects, formAction }: TicketFormProps) => {
+export default ({ projects, users, formAction }: TicketFormProps) => {
     const [state, createTicketAction] = useFormState(formAction, { message: "" });
     const ref = useRef<HTMLFormElement>(null);
 
@@ -50,7 +50,15 @@ export default ({ projects, formAction }: TicketFormProps) => {
             <input type="text" name="title" placeholder="Enter title" required />
             <textarea name="description" placeholder="Enter description" />
             <input type="number" name="points" placeholder="Enter points" />
-            <input type="text" name="Enter assignee" />
+            <label>
+                <select name="user">
+                    {
+                        users.map(({ id, name }) => (
+                            <option value={id} key={id}>{name}</option>
+                        ))
+                    }
+                </select>
+            </label>
             <input type="date" name="due" />
 
             <button type="submit">Add</button>
@@ -61,5 +69,6 @@ export default ({ projects, formAction }: TicketFormProps) => {
 
 type TicketFormProps = {
     projects: { id: number, name: string | null }[]
+    users: { id: number, name: string }[]
     formAction: (prevState: any, formData: FormData) => Promise<{ message: string, projectId?: number, newTicketNumber?: number }>
 }

@@ -34,12 +34,3 @@ export const columnSort = (searchParam?: string): { column?: string, direction?:
     const [column, direction] = searchParam.split("|");
     return { column, direction }
 }
-
-// export const searchParamsFormatter = createSearchParamsFormatter({
-//     page: digits,
-//     search: string,
-//     sort: columnSort,
-//     tags: commaDelimited
-// });
-
-// const { page, search, sort, tags } = searchParamsFormatter({ page: "1", search: "find me", sort: "column|asc" });
