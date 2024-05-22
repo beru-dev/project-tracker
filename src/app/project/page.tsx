@@ -5,6 +5,7 @@ import { ticket, project } from "../../database/schema";
 import { eq, sql } from "drizzle-orm";
 import { getUser, searchParamsFormatter } from "../../utils";
 import { Suspense } from "react";
+import { Aside } from "../../components";
 import Link from "next/link";
 import "../../styles/ticket.scss";
 
@@ -20,30 +21,33 @@ export default async ({ searchParams }: ProjectProps) => {
     const updateProjectDescriptionWithId = updateProjectDescription.bind(null, project_.id);
 
     return <>
-        <section className="project-info">
-            <h2>{name}</h2>
-            <EditField
-                name="description"
-                label="Description"
-                type="textarea"
-                value={project_.description || ""}
-                editable={!isGuest}
-                action={updateProjectDescriptionWithId}
-            />
-        </section>
-        <Suspense>
-            <SearchableResults title="Tickets" pageCount={1}>
-                {
-                    tickets.map(({ projectName, ticketNumber, title, status }) => (
-                        <div className={status.replace(" ", "")} key={`${projectName}-${ticketNumber}`}>
-                            <Link href={`/ticket?id=${projectName}-${ticketNumber}`}>{`${projectName}-${ticketNumber}`}</Link>
-                            <h3>{title}</h3>
-                            <span>{status}</span>
-                        </div>
-                    ))
-                }
-            </SearchableResults>
-        </Suspense>
+        <Aside project={name} />
+        <main>
+            <section className="project-info">
+                <h2>{name}</h2>
+                <EditField
+                    name="description"
+                    label="Description"
+                    type="textarea"
+                    value={project_.description || ""}
+                    editable={!isGuest}
+                    action={updateProjectDescriptionWithId}
+                />
+            </section>
+            <Suspense>
+                <SearchableResults title="Tickets" pageCount={1}>
+                    {
+                        tickets.map(({ projectName, ticketNumber, title, status }) => (
+                            <div className={status.replace(" ", "")} key={`${projectName}-${ticketNumber}`}>
+                                <Link href={`/ticket?id=${projectName}-${ticketNumber}`}>{`${projectName}-${ticketNumber}`}</Link>
+                                <h3>{title}</h3>
+                                <span>{status}</span>
+                            </div>
+                        ))
+                    }
+                </SearchableResults>
+            </Suspense>
+        </main>
     </>
 }
 

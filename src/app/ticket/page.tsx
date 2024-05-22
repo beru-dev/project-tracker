@@ -5,6 +5,7 @@ import { ticket, project, user } from "../../database/schema";
 import { eq, sql } from "drizzle-orm";
 import { alias } from "drizzle-orm/pg-core";
 import { getUser, searchParamsFormatter } from "../../utils";
+import { Aside } from "../../components";
 import { Suspense } from "react";
 import "../../styles/ticket.scss";
 
@@ -25,74 +26,77 @@ export default async ({ searchParams }: TicketProps) => {
     const updateTicketWithId = updateTicket.bind(null, id);
 
     return <>
-        <section className="ticket-info">
-            <section className="ticket-main">
-                <h2>{id}</h2>
-                <EditField
-                    name="title"
-                    label="Title"
-                    value={title}
-                    editable={!isGuest}
-                    action={updateTicketWithId}
-                />
-                <EditField
-                    name="description"
-                    label="Description"
-                    type="textarea"
-                    value={description || ""}
-                    editable={!isGuest}
-                    action={updateTicketWithId}
-                />
+        <Aside project={id.split("-")[0]} />
+        <main>
+            <section className="ticket-info">
+                <section className="ticket-main">
+                    <h2>{id}</h2>
+                    <EditField
+                        name="title"
+                        label="Title"
+                        value={title}
+                        editable={!isGuest}
+                        action={updateTicketWithId}
+                    />
+                    <EditField
+                        name="description"
+                        label="Description"
+                        type="textarea"
+                        value={description || ""}
+                        editable={!isGuest}
+                        action={updateTicketWithId}
+                    />
+                </section>
+                <section className="ticket-side">
+                    <EditSelect
+                        name="status"
+                        label="Status"
+                        value={status}
+                        editable={!isGuest}
+                        action={updateTicketWithId}
+                        options={[
+                            { value: "to do", display: "To Do" },
+                            { value: "working", display: "Working" },
+                            { value: "done", display: "Done" },
+                            { value: "abandoned", display: "Abandoned" },
+                            { value: "blocked", display: "Blocked" }
+                        ]}
+                    />
+                    <SearchList
+                        name="assignee"
+                        label="Assignee"
+                        value={assignee || ""}
+                        listId="assignee-list"
+                        getOptions={getUsers}
+                        submit={async (_, selected_assignee) => {
+                            "use server"
+                            updateTicketWithId("assigneeId", selected_assignee.id)
+                        }}
+                        initialOptions={users}
+                        editable={!isGuest}
+                    />
+                    <EditField
+                        name="points"
+                        label="Points"
+                        value={points?.toString() || ""}
+                        editable={!isGuest}
+                        action={updateTicketWithId}
+                    />
+                    <div>Created By: {creator}</div>
+                    <EditField
+                        name="due"
+                        label="Due"
+                        type="date"
+                        value={due || "-"}
+                        editable={!isGuest}
+                        action={updateTicketWithId}
+                    />
+                </section>
             </section>
-            <section className="ticket-side">
-                <EditSelect
-                    name="status"
-                    label="Status"
-                    value={status}
-                    editable={!isGuest}
-                    action={updateTicketWithId}
-                    options={[
-                        { value: "to do", display: "To Do" },
-                        { value: "working", display: "Working" },
-                        { value: "done", display: "Done" },
-                        { value: "abandoned", display: "Abandoned" },
-                        { value: "blocked", display: "Blocked" }
-                    ]}
-                />
-                <SearchList
-                    name="assignee"
-                    label="Assignee"
-                    value={assignee || ""}
-                    listId="assignee-list"
-                    getOptions={getUsers}
-                    submit={async (_, selected_assignee) => {
-                        "use server"
-                        updateTicketWithId("assigneeId", selected_assignee.id)
-                    }}
-                    initialOptions={users}
-                    editable={!isGuest}
-                />
-                <EditField
-                    name="points"
-                    label="Points"
-                    value={points?.toString() || ""}
-                    editable={!isGuest}
-                    action={updateTicketWithId}
-                />
-                <div>Created By: {creator}</div>
-                <EditField
-                    name="due"
-                    label="Due"
-                    type="date"
-                    value={due || "-"}
-                    editable={!isGuest}
-                    action={updateTicketWithId}
-                />
-            </section>
-        </section>
-        <Suspense>
-            <CommentsSection {...{ ticketNumber, projectId }} />
-        </Suspense>
+            <Suspense>
+                <CommentsSection {...{ ticketNumber, projectId }} />
+            </Suspense>
+        </main>
     </>
 }
 
@@ -157,8 +161,5 @@ const updateTicket = async (id: string, column: string | undefined, value: any) 
             .where(sql`${ticket.projectId} = (select pid from ${parentProject}) AND ${ticket.ticketNumber} = ${ticketNumber}`);
     } catch (error) {
         console.error("Unable to update ticket", error);
-        // return {
-        //     message: "Unable to update ticket"
-        // }
     }
 }

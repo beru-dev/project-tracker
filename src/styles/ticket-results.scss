@@ -1,5 +1,52 @@
 .results {
     > div {
+        display: flex;
         padding: 1rem 0;
+        a {
+            flex-basis: 20%;
+        }
+        h3 {
+            margin: 0;
+            flex-basis: 70%;
+        }
+        span {
+            flex-basis: 10%;
+            padding: .5rem;
+            border-radius: .5rem;
+            text-transform: capitalize;
+            font-weight: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        &.todo {
+            span {
+                background-color: #99ccff;
+                color: #0055aa;
+            }
+        }
+        &.working {
+            span {
+                background-color: #ffee99;
+                color: #aa8e00;
+            }
+        }
+        &.done {
+            span {
+                background-color: #99ffca;
+                color: #00aa60;
+            }
+        }
+        &.blocked {
+            span {
+                background-color: #ff99aa;
+                color: #aa0025;
+            }
+        }
+        &.abandoned {
+            span {
+                background-color: #e3e3e3;
+                color: #595959;
+            }
+        }
     }
 }

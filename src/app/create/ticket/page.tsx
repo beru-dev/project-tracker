@@ -43,6 +43,7 @@ const formAction = async (userId: number, prevState: any, formData: FormData) =>
             title: formData.get("title") as string,
             description: formData.get("description") as string,
             points: parseInt(formData.get("points") as string) || null,
+            due: formData.get("due") as string || null,
             creatorId: userId,
             assigneeId
         };

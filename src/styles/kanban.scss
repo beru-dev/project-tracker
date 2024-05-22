@@ -28,12 +28,14 @@
         &[data-status="abandoned"] {
             grid-area: abandoned;
         }
-        > div > div {
-            background-color: var(--dark-2);
-            border-radius: .5rem;
-            padding: .5rem;
-            margin-bottom: .5rem;
+        > div {
             height: 100%;
+            > div {
+                background-color: var(--dark-2);
+                border-radius: .5rem;
+                padding: .5rem;
+                margin-bottom: .5rem;
+            }
         }
     }
 }

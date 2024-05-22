@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default ({ error, reset }: { error: Error & { digest?: string }, reset: () => void}) => {
     useEffect(() => {
@@ -10,8 +11,8 @@ export default ({ error, reset }: { error: Error & { digest?: string }, reset: (
     return <>
         <aside></aside>
         <main>
-            <h4>Something went wrong viewing your project. Please verify that the project name is correct.</h4>
-            <button onClick={() => reset()}>Back to projects</button>
+            <h4>Something went wrong viewing your projects.</h4>
+            <Link href="/dashboard">Back to Dashboard</Link>
         </main>
     </>
 }

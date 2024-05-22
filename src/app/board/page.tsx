@@ -2,7 +2,8 @@ import { db } from "../../database/connection";
 import { eq, sql } from "drizzle-orm";
 import { project, ticket } from "../../database/schema";
 import { searchParamsFormatter, getNextDayDate } from "../../utils";
-import { Kanban } from "src/components/Kanban"; 
+import { Kanban } from "../../components/Kanban";
+import { Aside } from "../../components";
 import "../../styles/kanban.scss";
 
 export default async ({ searchParams }: ProjectsProps) => {
@@ -10,7 +11,12 @@ export default async ({ searchParams }: ProjectsProps) => {
     if(!name) throw new Error("Project name missing from URL parameters");
     const tickets = await getTickets(name);
 
-    return <Kanban {...{ tickets, updateStatus }} />
+    return <>
+        <Aside project={name} />
+        <main>
+            <Kanban {...{ tickets, updateStatus }} />
+        </main>
+    </>
 }
 
 type ProjectsProps = {
@@ -27,7 +33,7 @@ const getTickets = async (name: string) => {
         status: ticket.status
     }).from(ticket)
         .leftJoin(project, eq(project.name, name))
-        .where(sql`${project.id} = ${ticket.projectId} AND ${ticket.due} <= ${nextFridayDate}`);
+        .where(sql`${project.id} = ${ticket.projectId} AND ${ticket.due} = ${nextFridayDate}`);
 
     return tickets
 }

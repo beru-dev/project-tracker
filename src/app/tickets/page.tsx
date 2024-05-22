@@ -5,22 +5,28 @@ import { sql, eq, inArray, like } from "drizzle-orm";
 import Link from "next/link";
 import { searchParamsFormatter } from "../../utils";
 import "../../styles/ticket-results.scss";
+import { Aside } from "../../components";
 
 export default async ({ searchParams }: TicketsProps) => {
     const { projects, due, search } = searchParamsFormatter(searchParams);
     const tickets = await getTickets(search, projects, due);
 
-    return <SearchableResults title="Tickets" pageCount={1}>
-        {
-            tickets.map(({ projectName, ticketNumber, title, status }) => (
-                <div className={status.replace(" ", "")} key={`${projectName}-${ticketNumber}`}>
-                    <Link href={`/ticket?id=${projectName}-${ticketNumber}`}>{`${projectName}-${ticketNumber}`}</Link>
-                    <h3>{title}</h3>
-                    <span>{status}</span>
-                </div>
-            ))
-        }
-    </SearchableResults>
+    return <>
+        <Aside project={projects?.length === 1 ? projects[0] : undefined} />
+        <main>
+            <SearchableResults title="Tickets" pageCount={1}>
+                {
+                    tickets.map(({ projectName, ticketNumber, title, status }) => (
+                        <div className={status.replace(" ", "")} key={`${projectName}-${ticketNumber}`}>
+                            <Link href={`/ticket?id=${projectName}-${ticketNumber}`}>{`${projectName}-${ticketNumber}`}</Link>
+                            <h3>{title}</h3>
+                            <span>{status}</span>
+                        </div>
+                    ))
+                }
+            </SearchableResults>
+        </main>
+    </>
 }
 
 type TicketsProps = {

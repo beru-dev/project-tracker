@@ -23,6 +23,12 @@ body {
     aside {
         grid-area: aside;
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--dark-3);
+        a {
+            margin: 1rem 0;
+        }
     }
 
     main {

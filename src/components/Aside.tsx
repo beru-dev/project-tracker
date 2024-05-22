@@ -1,7 +1,19 @@
 import Link from "next/link";
 
-export default () => {
+export default ({ project }: AsideProps) => {
     return <aside>
-        <Link href="/create-ticket">Create Ticket</Link>
+        <Link href={"/dashboard"}>Dashboard</Link>
+        {
+            project && (
+                <>
+                    <Link href={`/tickets?projects=${project}`}>Backlog</Link>
+                    <Link href={`/board?name=${project}`}>Board</Link>
+                </>
+            )
+        }
     </aside>
+}
+
+type AsideProps = {
+    project?: string
 }
