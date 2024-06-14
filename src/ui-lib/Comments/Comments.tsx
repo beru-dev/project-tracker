@@ -13,29 +13,31 @@ export const Comments = ({ comments, addComment, canAddComment = false }: Commen
     }, [comments]);
 
     return <section className="comments">
+        <h3>Add a comment:</h3>
         {
             canAddComment && <>
                 <textarea value={newComment} onChange={e => setNewComment(e.target.value)} />
                 <button
-                disabled={!Boolean(newComment.length)}
-                onClick={async () => {
-                    try {
-                        const responseComment = await addComment(newComment);
-                        setComments(prev => {
-                            return [
-                                ...prev,
-                                responseComment
-                            ]
-                        });
-                    } catch (error) {
-                        console.error(error)
-                        //
-                    }
-                }}
-            >Add</button>
+                    className="add-comment"
+                    disabled={!Boolean(newComment.length)}
+                    onClick={async () => {
+                        try {
+                            const responseComment = await addComment(newComment);
+                            setComments(prev => {
+                                return [
+                                    ...prev,
+                                    responseComment
+                                ]
+                            });
+                        } catch (error) {
+                            console.error(error)
+                            //
+                        }
+                    }}
+                >Add Comment</button>
             </>
         }
-        
+        { comments_.length ? <h3>Comments:</h3> : null }
         {
             comments_.map(({ id, userName, content, edit, createdAt, updatedAt }) => <Comment {...{ id, userName, content, edit, createdAt, updatedAt }} key={id} />)
         }
@@ -45,7 +47,7 @@ export const Comments = ({ comments, addComment, canAddComment = false }: Commen
 type CommentsProps = {
     comments: (LocalComment & { edit?: ReactNode })[]
     addComment: (content: string) => Promise<LocalComment>
-    canAddComment: boolean
+    canAddComment?: boolean
 }
 
 type LocalComment = {

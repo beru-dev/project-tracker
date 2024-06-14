@@ -33,6 +33,7 @@ export const Popover = ({ trigger, position = "below", children, id, className }
                     {
                         createPortal(
                             <div
+                                className="popover-underlay"
                                 onClick={() => setIsOpen(false)}
                                 style={{ position: "absolute", width: "100%", height: "100%" }}
                             ></div>,

@@ -2,8 +2,7 @@ type Weekday = "sunday" | "monday" | "tuesday" | "wednesday" | "thursday" | "fri
 
 const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
-export default (targetDay: Weekday) => {
-    const today = new Date()
+export default (targetDay: Weekday, today = new Date()) => {
     const todaysWeekday = today.getDay();
     const targetWeekday = weekdays.indexOf(targetDay);
 
@@ -13,8 +12,6 @@ export default (targetDay: Weekday) => {
     const targetDate = new Date(today.getTime() + (daysUntilTargetDay * 24 * 60 * 60 * 1000))
         .toISOString()
         .match(/[^T]+/);
-    
-    if(!targetDate) throw Error("Unable to find next Friday's date");
 
-    return targetDate[0];
+    return (targetDate as RegExpMatchArray)[0];
 }

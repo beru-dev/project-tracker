@@ -3,7 +3,7 @@ import { user } from "../../src/database/schema";
 import { eq, sql } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 
-export default async (/*name: string, */roles?: string[]): Promise<UserOrError> => {
+export default async (roles?: string[]): Promise<UserOrError> => {
     const session = await getServerSession();
     if(!session?.user?.name) {
         return { error: "Please log in to perform this operation" }

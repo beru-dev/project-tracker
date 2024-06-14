@@ -1,5 +1,5 @@
 section.comments {
-    display: flex;
+    display: grid;
     flex-direction: column;
 
     article.comment {
@@ -18,5 +18,14 @@ section.comments {
         .content {
             grid-area: content;
         }
+    }
+
+    textarea {
+        margin-bottom: 1rem;
+    }
+
+    button.add-comment {
+        max-width: 10rem;
+        justify-self: center
     }
 }

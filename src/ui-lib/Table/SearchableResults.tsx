@@ -5,7 +5,8 @@ import "./searchable-results.scss";
 
 export const SearchableResults = ({
     title,
-    pageCount, pagePad = 2,
+    pageCount,
+    pagePad = 2,
     children
 }: SearchableResultsProps) => {
     return <section className="searchable-results">

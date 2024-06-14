@@ -12,7 +12,7 @@ export default createSearchParamsFormatter({
     due: (searchParam?: string): Date | undefined => {
         if(!searchParam) return undefined;
 
-        const date = new Date(parseInt(searchParam));
+        const date = new Date(searchParam);
         
         return date.getTime() ? date : undefined;
     }

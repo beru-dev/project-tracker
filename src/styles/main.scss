@@ -43,11 +43,32 @@ body {
 
     form {
         display: grid;
-        gap: .5rem;
-    
+        gap: 1rem;
+
+        label {
+            display: flex;
+            vertical-align: baseline;
+            &.stack {
+                flex-direction: column;
+            }
+            span {
+                display: inline-block;
+                min-width: 10rem;
+            }
+            textarea {
+                margin-top: .5rem;
+                min-height: 4rem;
+            }
+        }
+
         input, textarea {
             border: 0;
             padding: .5rem;
+        }
+
+        button {
+            width: 10rem;
+            justify-self: center;
         }
     }
 }

@@ -12,7 +12,8 @@ export default ({ name, label, value, listId, initialOptions = [], getOptions, s
     const ref = useRef<HTMLInputElement>(null);
 
     const updateList = debounce(async (e: React.ChangeEvent<HTMLInputElement>) => {
-        setOptions(await getOptions(e.target.value));
+        const newOptions = await getOptions(e.target.value);
+        setOptions(newOptions);
     }, 500);
 
     const activateEditing = () => {
@@ -32,6 +33,7 @@ export default ({ name, label, value, listId, initialOptions = [], getOptions, s
         try {
             await submit(name, match);
         } catch {
+            console.error("Something went wrong submitting a change");
             // TOAST ERROR
         } finally {
             setCurrentValue(ref?.current?.value || "");

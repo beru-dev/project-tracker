@@ -38,6 +38,7 @@ export default ({ projects, users, formAction }: TicketFormProps) => {
             {...{ ref }}
         >
             <label>
+                <span>Project:</span>
                 <select name="project">
                     {
                         projects.map(({ id, name }) => (
@@ -47,10 +48,23 @@ export default ({ projects, users, formAction }: TicketFormProps) => {
                 </select>
             </label>
 
-            <input type="text" name="title" placeholder="Enter title" required />
-            <textarea name="description" placeholder="Enter description" />
-            <input type="number" name="points" placeholder="Enter points" />
             <label>
+                <span>Title:</span>
+                <input type="text" name="title" placeholder="Enter title" required />
+            </label>
+
+            <label className="stack">
+                <span>Description:</span>
+                <textarea name="description" placeholder="Enter description" />
+            </label>
+
+            <label>
+                <span>Level of Effort:</span>
+                <input type="number" name="points" placeholder="Enter points" />
+            </label>
+
+            <label>
+                <span>Assignee:</span>
                 <select name="user">
                     {
                         users.map(({ id, name }) => (
@@ -59,7 +73,11 @@ export default ({ projects, users, formAction }: TicketFormProps) => {
                     }
                 </select>
             </label>
-            <input type="date" name="due" />
+
+            <label>
+                <span>Due Date:</span>
+                <input type="date" name="due" />
+            </label>
 
             <button type="submit">Add</button>
         </form>

@@ -82,7 +82,7 @@ export default async ({ searchParams }: TicketProps) => {
                         editable={!isGuest}
                         action={updateTicketWithId}
                     />
-                    <div>Created By: {creator}</div>
+                    <div className="field-inactive"><span>Created By:</span>{creator}</div>
                     <EditField
                         name="due"
                         label="Due"

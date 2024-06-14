@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { useFormState } from "react-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default ({ formAction }: ProjectFormProps) => {
     const [state, createProjectAction] = useFormState(formAction, { message: "", isError: false });
@@ -24,7 +24,11 @@ export default ({ formAction }: ProjectFormProps) => {
         {
             state?.message ? <div>{state.message}</div> : null
         }
-        <input type="text" name="name" placeholder="Project name" required />
+
+        <label>
+            <span>Project name:</span>
+            <input type="text" name="name" placeholder="Enter project name" required />
+        </label>
         <button type="submit">Add</button>
     </form>
 }
